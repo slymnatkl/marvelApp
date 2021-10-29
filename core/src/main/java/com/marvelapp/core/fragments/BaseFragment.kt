@@ -34,11 +34,11 @@ abstract class BaseFragment<VDBinding : ViewDataBinding>(
         (activity as BaseActivity<*>).showMessage(message)
     }
 
-    protected fun showProgressDialog(){
+    open fun showProgressDialog(){
         (activity as BaseActivity<*>).showProgressDialog()
     }
 
-    protected fun hideProgressDialog(){
+    open fun hideProgressDialog(){
         (activity as BaseActivity<*>).hideProgressDialog()
     }
 }

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Repository</string>
+    <string name="check_connection">Lütfen İnternet bağlantınızı kontrol ediniz.</string>
+</resources>
