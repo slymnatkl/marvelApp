@@ -6,8 +6,8 @@ import androidx.paging.*
 import com.marvelapp.repository.model.Character
 import com.marvelapp.repository.network.repository.CharactersRepository
 import com.marvelapp.repository.network.response.ErrorResponse
-import com.marvelapp.view.adapters.CharacterDataSource
-import com.marvelapp.view.adapters.HomeAdapter
+import com.marvelapp.view.adapters.CharactersDataSource
+import com.marvelapp.view.adapters.CharacterListAdapter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -15,15 +15,15 @@ import kotlinx.coroutines.launch
 class HomeViewModel : BaseViewModel(){
 
     private lateinit var characters: Flow<*>
-    val adapterHome = HomeAdapter()
+    val adapterCharacterList = CharacterListAdapter()
 
     fun init(context: Context){
 
-        characters = Pager(PagingConfig(pageSize = CharacterDataSource.LIMIT)){
-            CharacterDataSource(CharactersRepository.getRestInterface(context))
+        characters = Pager(PagingConfig(pageSize = CharactersDataSource.LIMIT)){
+            CharactersDataSource(CharactersRepository.getRestInterface(context))
         }.flow.cachedIn(viewModelScope)
 
-        adapterHome.addLoadStateListener {
+        adapterCharacterList.addLoadStateListener {
 
             when (val loadState = it.source.refresh) {
                 is LoadState.NotLoading -> {
@@ -37,15 +37,17 @@ class HomeViewModel : BaseViewModel(){
                 }
             }
         }
+
+        if(adapterCharacterList.itemCount <= 0)
+            getCharacters()
     }
 
-
-    fun getCharacters(){
+    private fun getCharacters(){
 
         launch {
 
             characters.collectLatest {
-                adapterHome.submitData(it as PagingData<Character>)
+                adapterCharacterList.submitData(it as PagingData<Character>)
             }
         }
     }

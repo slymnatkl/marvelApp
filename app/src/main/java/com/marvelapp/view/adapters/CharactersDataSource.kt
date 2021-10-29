@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.marvelapp.repository.model.Character
 import com.marvelapp.repository.network.api.MarvelApi
 
-class CharacterDataSource(private val api: MarvelApi): PagingSource<Int, Character>() {
+class CharactersDataSource(private val api: MarvelApi): PagingSource<Int, Character>() {
 
     override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
         return null

@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.marvelapp.databinding.RowItemCharacterListBinding
 import com.marvelapp.repository.model.Character
 
-class HomeAdapter: PagingDataAdapter<Character, HomeAdapter.MovieViewHolder>(DiffUtilCallBack()) {
+class CharacterListAdapter: PagingDataAdapter<Character, CharacterListAdapter.MovieViewHolder>(DiffUtilCallBack()) {
+
+    private var clickListener: CharacterItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = RowItemCharacterListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,9 +19,23 @@ class HomeAdapter: PagingDataAdapter<Character, HomeAdapter.MovieViewHolder>(Dif
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.binding.character = getItem(position)
+        holder.binding.characterItemClick = object : CharacterItemClickListener{
+            override fun onCharacterItemClicked(character: Character) {
+
+                clickListener?.onCharacterItemClicked(character)
+            }
+        }
     }
 
     class MovieViewHolder(val binding: RowItemCharacterListBinding): RecyclerView.ViewHolder(binding.root)
+
+    fun setOnCharacterItemClickListener(clickListener: CharacterItemClickListener){
+        this@CharacterListAdapter.clickListener = clickListener
+    }
+
+    interface CharacterItemClickListener {
+        fun onCharacterItemClicked(character: Character)
+    }
 
     class DiffUtilCallBack: DiffUtil.ItemCallback<Character>() {
 

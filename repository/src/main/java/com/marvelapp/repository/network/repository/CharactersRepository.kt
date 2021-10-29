@@ -10,4 +10,8 @@ object CharactersRepository : BaseRepository() {
         return getRetrofit(context).create(MarvelApi::class.java)
     }
 
+    fun getComics(context: Context, characterId: Int, taskCompletedListener: TaskCompletedListener?) {
+
+        callRequest(getRestInterface(context).getComics(characterId), taskCompletedListener)
+    }
 }

@@ -1,9 +1,8 @@
 package com.marvelapp.repository.network.response
 
 import com.google.gson.annotations.SerializedName
-import com.marvelapp.repository.model.Character
 
-open class CharactersResponse{
+open class BaseListResponse <T> {
 
     @SerializedName("offset")
     val offset: Int? = null
@@ -18,5 +17,5 @@ open class CharactersResponse{
     val count: Int? = null
 
     @SerializedName("results")
-    val results: List<Character>? = null
+    val results: List<T>? = null
 }
