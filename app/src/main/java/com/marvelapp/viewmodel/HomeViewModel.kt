@@ -1,42 +1,52 @@
 package com.marvelapp.viewmodel
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import androidx.paging.*
 import com.marvelapp.repository.model.Character
-import com.marvelapp.repository.network.repository.BaseRepository
 import com.marvelapp.repository.network.repository.CharactersRepository
-import com.marvelapp.repository.network.response.BaseResponse
-import com.marvelapp.repository.network.response.CharactersResponse
 import com.marvelapp.repository.network.response.ErrorResponse
+import com.marvelapp.view.adapters.CharacterDataSource
 import com.marvelapp.view.adapters.HomeAdapter
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class HomeViewModel : BaseViewModel(){
 
-    val characters = MutableLiveData<List<Character>>()
+    private lateinit var characters: Flow<*>
     val adapterHome = HomeAdapter()
 
-    fun getCharacters(context: Context){
+    fun init(context: Context){
+
+        characters = Pager(PagingConfig(pageSize = CharacterDataSource.LIMIT)){
+            CharacterDataSource(CharactersRepository.getRestInterface(context))
+        }.flow.cachedIn(viewModelScope)
+
+        adapterHome.addLoadStateListener {
+
+            when (val loadState = it.source.refresh) {
+                is LoadState.NotLoading -> {
+                    loading.value = false
+                }
+                is LoadState.Loading -> {
+                    loading.value = true
+                }
+                is LoadState.Error -> {
+                    error.value = ErrorResponse(true, -1, loadState.error.localizedMessage)
+                }
+            }
+        }
+    }
+
+
+    fun getCharacters(){
 
         launch {
 
-            loading.value = true
-
-            CharactersRepository.getCharacters(context, object : BaseRepository.TaskCompletedListener{
-                override fun <T> onTaskCompleted(isError: Boolean, code: Int, message: String?, result: T) {
-
-                    if(!isError){
-                        val response = (result as BaseResponse<CharactersResponse>)
-
-                        characters.value = response.data?.results
-                        adapterHome.setItems(characters.value!!)
-                    }
-                    else
-                        error.value = ErrorResponse(isError, code, message)
-
-                    loading.value = false
-                }
-            })
+            characters.collectLatest {
+                adapterHome.submitData(it as PagingData<Character>)
+            }
         }
     }
 }

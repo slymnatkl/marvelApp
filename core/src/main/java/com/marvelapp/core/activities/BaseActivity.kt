@@ -30,17 +30,17 @@ abstract class BaseActivity<VDBinding : ViewDataBinding>(
 
     //<editor-fold desc="Progress">
 
-    private lateinit var progressDialog: Dialog
+    private var progressDialog: Dialog? = null
 
     fun showProgressDialog(){
 
         progressDialog = getProgressDialog()
-        progressDialog.show()
+        progressDialog?.show()
     }
 
     fun hideProgressDialog(){
 
-        progressDialog.hide()
+        progressDialog?.dismiss()
     }
 
     //</editor-fold>

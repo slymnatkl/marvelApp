@@ -19,10 +19,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun initViewModel(){
 
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel.init(requireContext())
         binding.homeViewModel = viewModel
         observeViewModel()
 
-        viewModel.getCharacters(requireActivity())
+        viewModel.getCharacters()
     }
 
     private fun observeViewModel(){
