@@ -16,15 +16,13 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: Repository): BaseViewModel(){
 
-    private lateinit var characters: Flow<PagingData<Character>>
+    private var characters: Flow<PagingData<Character>> = Pager(PagingConfig(pageSize = CharactersDataSource.LIMIT)){
+        CharactersDataSource(repository)
+    }.flow.cachedIn(viewModelScope)
+
     val adapterCharacterList = CharacterListAdapter()
 
-    fun init(){
-
-        characters = Pager(PagingConfig(pageSize = CharactersDataSource.LIMIT)){
-            CharactersDataSource(repository)
-        }.flow.cachedIn(viewModelScope)
-
+    init {
         launch {
 
             adapterCharacterList.loadStateFlow.collectLatest { loadStates ->
@@ -33,11 +31,12 @@ class HomeViewModel @Inject constructor(private val repository: Repository): Bas
 
                 if(loadStates.refresh is LoadState.Error)
                     error.value = ErrorResponse((loadStates.refresh as LoadState.Error).error.localizedMessage)
+                else
+                    error.value = null
             }
         }
 
-        if(adapterCharacterList.itemCount <= 0)
-            getCharacters()
+        getCharacters()
     }
 
     private fun getCharacters(){

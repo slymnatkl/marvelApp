@@ -39,7 +39,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun initViewModel(){
 
-        viewModel.init()
         binding.homeViewModel = viewModel
         observeViewModel()
     }
@@ -60,7 +59,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         viewModel.error.observe(this, { errorResponse ->
 
-            errorResponse.message?.let {
+            errorResponse?.message?.let {
                 showMessage(it)
             }
         })

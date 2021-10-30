@@ -24,9 +24,19 @@ open class Comic: Parcelable {
 
     fun getFocDate(): String?{
 
+        return searchDate("focDate")
+    }
+
+    fun getSaleDate(): String?{
+
+        return searchDate("onsaleDate")
+    }
+
+    private fun searchDate(filter: String): String?{
+
         results?.let {
             it.forEach { date ->
-                if(date.type.equals("focDate"))
+                if(date.type.equals(filter))
                     return date.getDateString()
             }
         }

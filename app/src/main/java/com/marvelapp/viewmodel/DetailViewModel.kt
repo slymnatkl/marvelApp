@@ -15,13 +15,7 @@ class DetailViewModel @Inject constructor(private val repository: Repository) : 
     val comics = MutableLiveData<List<Comic>>()
     val adapterComicList = ComicListAdapter()
 
-    fun init(characterId: Int){
-
-        if(adapterComicList.itemCount <= 0)
-            getComics(characterId)
-    }
-
-    private fun getComics(characterId: Int){
+    fun refreshComics(characterId: Int){
 
         launch {
 

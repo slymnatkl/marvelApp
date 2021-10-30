@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Marvel App</string>
+    <string name="foc_date">Foc Date</string>
+    <string name="sale_date">Sale Date</string>
 </resources>

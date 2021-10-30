@@ -1,7 +1,6 @@
 package com.marvelapp.view.fragments
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.marvelapp.R
 import com.marvelapp.core.fragments.BaseFragment
 import com.marvelapp.databinding.FragmentDetailBinding
@@ -42,7 +41,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         observeViewModel()
 
         character?.let {
-            viewModel.init(it.id!!)
+            viewModel.refreshComics(it.id!!)
         }
     }
 
