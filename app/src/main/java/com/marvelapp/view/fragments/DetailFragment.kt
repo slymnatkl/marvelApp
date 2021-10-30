@@ -1,12 +1,15 @@
 package com.marvelapp.view.fragments
 
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.marvelapp.R
 import com.marvelapp.core.fragments.BaseFragment
 import com.marvelapp.databinding.FragmentDetailBinding
 import com.marvelapp.repository.model.Character
 import com.marvelapp.viewmodel.DetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
 
     private var character: Character? = null
@@ -31,16 +34,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     //<editor-fold desc="View Model">
 
-    lateinit var viewModel: DetailViewModel
+    private val viewModel: DetailViewModel by viewModels()
 
     private fun initViewModel(){
 
-        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         binding.detailViewModel = viewModel
         observeViewModel()
 
         character?.let {
-            viewModel.init(requireContext(), it.id!!)
+            viewModel.init(it.id!!)
         }
     }
 

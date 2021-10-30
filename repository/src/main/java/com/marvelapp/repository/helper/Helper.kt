@@ -1,13 +1,11 @@
-package com.marvelapp.repository.utils
+package com.marvelapp.repository.helper
 
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
-object Utils {
+object Helper {
 
     fun md5(input: String) = hashString("MD5", input)
 

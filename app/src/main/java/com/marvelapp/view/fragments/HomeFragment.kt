@@ -1,7 +1,7 @@
 package com.marvelapp.view.fragments
 
 import android.app.Dialog
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.marvelapp.R
 import com.marvelapp.core.fragments.BaseFragment
@@ -9,7 +9,9 @@ import com.marvelapp.databinding.FragmentHomeBinding
 import com.marvelapp.repository.model.Character
 import com.marvelapp.view.adapters.CharacterListAdapter
 import com.marvelapp.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     //<editor-fold desc="Init Views">
@@ -33,12 +35,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     //<editor-fold desc="View Model">
 
-    lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
 
     private fun initViewModel(){
 
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        viewModel.init(requireContext())
+        viewModel.init()
         binding.homeViewModel = viewModel
         observeViewModel()
     }

@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.marvelapp.databinding.RowItemComicListBinding
 import com.marvelapp.repository.model.Comic
+import javax.inject.Inject
 
-class ComicListAdapter: RecyclerView.Adapter<ComicListAdapter.ComicViewHolder>() {
+class ComicListAdapter @Inject constructor(): RecyclerView.Adapter<ComicListAdapter.ComicViewHolder>() {
 
     var itemList: List<Comic> = ArrayList()
 

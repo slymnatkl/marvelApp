@@ -1,7 +1,7 @@
 package com.marvelapp.repository.model
 
 import com.google.gson.annotations.SerializedName
-import com.marvelapp.repository.utils.Utils
+import com.marvelapp.repository.helper.Helper
 
 open class Date{
 
@@ -14,7 +14,7 @@ open class Date{
     open fun getDateString(): String? {
 
         try {
-            return Utils.dateToString(Utils.stringToDate(date!!,"yyyy-MM-dd'T'HH:mm:ssZ")!!, "yyyy-MM-dd")
+            return Helper.dateToString(Helper.stringToDate(date!!,"yyyy-MM-dd'T'HH:mm:ssZ")!!, "yyyy-MM-dd")
         }
         catch (e: Exception){
             e.printStackTrace()

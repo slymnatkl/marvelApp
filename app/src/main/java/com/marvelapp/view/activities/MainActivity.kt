@@ -6,7 +6,9 @@ import androidx.navigation.ui.NavigationUI
 import com.marvelapp.R
 import com.marvelapp.core.activities.BaseActivity
 import com.marvelapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private lateinit var navigationController: NavController

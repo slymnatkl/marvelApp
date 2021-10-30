@@ -1,7 +1,7 @@
 package com.marvelapp.repository.network.interceptor
 
 import com.marvelapp.repository.network.utils.ApiUtils
-import com.marvelapp.repository.utils.Utils
+import com.marvelapp.repository.helper.Helper
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -20,7 +20,7 @@ class GeneralInterceptor: Interceptor{
         val timeStamp = Date().time.toString()
         urlBuilder.addQueryParameter(ApiUtils.PARAM_TIMESTAMP, timeStamp)
         urlBuilder.addQueryParameter(ApiUtils.PARAM_APIKEY, ApiUtils.PUBLIC_KEY)
-        urlBuilder.addQueryParameter(ApiUtils.PARAM_HASH, Utils.md5(timeStamp + ApiUtils.PRIVATE_KEY + ApiUtils.PUBLIC_KEY))
+        urlBuilder.addQueryParameter(ApiUtils.PARAM_HASH, Helper.md5(timeStamp + ApiUtils.PRIVATE_KEY + ApiUtils.PUBLIC_KEY))
 
         val url: HttpUrl = urlBuilder.build()
 
