@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/black_primary</color>
-    <color name="colorPrimaryDark">@color/black_dark</color>
-    <color name="colorAccent">@color/white</color>
 
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="primary_color">#eeeeee</color>
+    <color name="light_color">#ffffff</color>
+    <color name="dark_color">#bcbcbc</color>
+    <color name="text_color">#000000</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
     <color name="gray">#CCCCCC</color>
     <color name="gray_light">#BDBDBD</color>
     <color name="gray_light_2">#ececec</color>
     <color name="gray_light_3">#f9f9f9</color>
-
-    <color name="black_primary">#212121</color>
-    <color name="black_light">#484848</color>
-    <color name="black_dark">#000000</color>
 
 </resources>

@@ -49,12 +49,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             if (isLoading)
                 showProgressDialog()
-            else{
+            else
                 hideProgressDialog()
-
-                if (binding.swipeRefreshLayout.isRefreshing)
-                    binding.swipeRefreshLayout.isRefreshing = false
-            }
         })
 
         viewModel.error.observe(this, { errorResponse ->
