@@ -23,7 +23,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository): Bas
     val adapterCharacterList = CharacterListAdapter()
 
     init {
-        launch {
+        viewModelScope.launch {
 
             adapterCharacterList.loadStateFlow.collectLatest { loadStates ->
 
@@ -41,7 +41,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository): Bas
 
     private fun getCharacters(){
 
-        launch {
+        viewModelScope.launch {
 
             characters.collectLatest {
                 adapterCharacterList.submitData(it)

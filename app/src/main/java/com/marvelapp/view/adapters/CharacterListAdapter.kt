@@ -44,7 +44,7 @@ class CharacterListAdapter: PagingDataAdapter<Character, CharacterListAdapter.Mo
         }
 
         override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
-            return oldItem.equals(newItem);
+            return oldItem == newItem;
         }
     }
 }

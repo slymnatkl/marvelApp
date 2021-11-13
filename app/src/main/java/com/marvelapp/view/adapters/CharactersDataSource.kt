@@ -15,13 +15,15 @@ class CharactersDataSource @Inject constructor(private val repository: Repositor
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
 
         return try {
-            val nextPageNumber = params.key ?: STARTING_INDEX
-            val response = repository.getCharacters(LIMIT, (nextPageNumber * LIMIT))
+            val pageNumber = params.key ?: STARTING_INDEX
+            val response = repository.getCharacters(LIMIT, (pageNumber * LIMIT))
+
+            val nextPageNumber = response.data?.results?.let { pageNumber + 1 } ?: run { null }
 
             LoadResult.Page(
-                data = response.data!!.results!!,
+                data = response.data?.results ?: run { emptyList() },
                 prevKey = null,
-                nextKey = nextPageNumber + 1
+                nextKey = nextPageNumber
             )
         }
         catch (e: Exception) {

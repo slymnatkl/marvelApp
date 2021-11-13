@@ -1,6 +1,7 @@
 package com.marvelapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.marvelapp.repository.model.Comic
 import com.marvelapp.repository.network.repository.Repository
 import com.marvelapp.repository.network.response.ErrorResponse
@@ -17,7 +18,7 @@ class DetailViewModel @Inject constructor(private val repository: Repository) : 
 
     fun refreshComics(characterId: Int){
 
-        launch {
+        viewModelScope.launch {
 
             loading.value = true
 

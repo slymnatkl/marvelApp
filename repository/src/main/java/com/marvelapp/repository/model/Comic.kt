@@ -5,23 +5,15 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-open class Comic: Parcelable {
-
-    @SerializedName("id")
-    val id: Int? = null
-
-    @SerializedName("title")
-    val title: String? = null
-
-    @SerializedName("description")
-    val description: String? = null
-
-    @SerializedName("thumbnail")
-    val thumbnail: Thumbnail? = null
-
-    @SerializedName("dates")
-    val results: List<Date>? = null
-
+data class Comic(
+    @SerializedName("id") val id: Int? = null,
+    @SerializedName("title") val title: String? = null,
+    @SerializedName("description") val description: String? = null,
+    @SerializedName("thumbnail") val thumbnail: Thumbnail? = null,
+    @SerializedName("dates") val dates: List<Date>? = null,
+    @SerializedName("extension") val extension: String? = null
+): Parcelable
+{
     fun getFocDate(): String?{
 
         return searchDate("focDate")
@@ -34,7 +26,7 @@ open class Comic: Parcelable {
 
     private fun searchDate(filter: String): String?{
 
-        results?.let {
+        dates?.let {
             it.forEach { date ->
                 if(date.type.equals(filter))
                     return date.getDateString()
